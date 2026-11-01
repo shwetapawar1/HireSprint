@@ -15,7 +15,7 @@ const createToken = (userId) => {
 const register = async(req, res, next) => {
     try{
         
-        const {name,email,password} = req.body;
+        const {name,email,password,role} = req.body;
         
         if(
             typeof name !== "string" ||
@@ -30,13 +30,21 @@ const register = async(req, res, next) => {
         message: "Name, email and password are required",
     });
 }
+
 if(name.trim().length < 2 || name.trim().length > 60){
     return res.status(400).json({
         success: false,
         message:"Name must be between 2 and 60 characters",
     });
 }
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())){
+if (role && !["jobseeker", "recruiter"].includes(role)) {
+    return res.status(400).json({
+        success: false,
+        message: "Invalid role",
+    });
+}
+
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
     return res.status(400).json({
         success: false,
         message: "Please enter a valid email",
@@ -68,7 +76,7 @@ const hashedPassword = await bcrypt.hash(password,12);
         name: name.trim(),
         email: normalizedEmail,
         password: hashedPassword,
-        role: "jobseeker",
+        role: role || "jobseeker",
         });
 
     const token = createToken(user._id.toString());

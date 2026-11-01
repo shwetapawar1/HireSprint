@@ -9,6 +9,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes")
 const recruiterRoutes = require("./routes/recruiterRoutes");
+const jobRoutes = require("./routes/jobRoutes");
 
 
 const app = express();
@@ -32,6 +33,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
 app.use("/api/recruiter", recruiterRoutes);
+
+app.use("/api/jobs", jobRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {
