@@ -40,11 +40,13 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/application", applicationRoutes);
 
 
-///server testing
-// app.get("/api/applications/test", (req, res) => {
-//   res.json({ message: "Applications route is working" });
+// // /server testing
+// app.get("/api/application/test", (req, res) => {
+//     res.status(200).json({
+//         success: true,
+//         message: "Application route is working"
+//     });
 // });
-
 
 
 

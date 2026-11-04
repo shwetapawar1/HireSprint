@@ -5,7 +5,7 @@ const { protect } = require("../middleware/authMiddleware");
 const { authorizeRoles } = require("../middleware/roleMiddleware");
 
 
-const { getMyApplications , getRecruiterApplications } = require("../controllers/applicationController");
+const { getMyApplications , getRecruiterApplications, updateApplicationStatus } = require("../controllers/applicationController");
 
 
 router.get(
@@ -16,5 +16,7 @@ router.get(
 );
 
 router.get("/recruiter", protect, authorizeRoles("recruiter", "admin"), getRecruiterApplications);
+
+router.patch("/:id/status", protect, authorizeRoles("recruiter"), updateApplicationStatus);
 
 module.exports = router;
