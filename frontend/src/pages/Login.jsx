@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {Mail,Lock, Eye,EyeOff, Link } from "lucide-react";
+import {Mail,Lock, Eye,EyeOff} from "lucide-react";
 
 
 
 const Login = () => {
-    const [showPassword, setShowPasswaord] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({email: "", password: "",});
 
 
@@ -79,7 +79,7 @@ const Login = () => {
                             <Lock size={19} className="text-gray-400"/>
 
                             <input
-                             type={showPassword ? "text" : "password "}
+                             type={showPassword ? "text" : "password"}
                              name="password"
                              value={formData.password}
                              onChange={handleChange}
@@ -89,7 +89,7 @@ const Login = () => {
                             
                             />
 
-                            <button type="button" onClick={() => setShowPasswaord(!showPassword)}
+                             <button type="button" onClick={() => setShowPassword(!showPassword)}
                                 className="text-gray-400">
 
                                     {showPassword ? (
@@ -97,7 +97,11 @@ const Login = () => {
                                     ) : (
                                         <Eye size={19} />
                                     )}
-                            </button>
+                            </button> 
+
+
+                           
+
                         </div>
 
                       </div>
