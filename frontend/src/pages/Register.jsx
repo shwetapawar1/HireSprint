@@ -1,4 +1,5 @@
-
+import { useNavigate } from "react-router-dom";
+import API from "../services/api";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff } from "lucide-react";
@@ -15,6 +16,12 @@ const Register = () => {
     role: "jobseeker",
   });
 
+
+   const navigate = useNavigate();
+   const [loading,setLoading] = useState(false);
+   const [message, setMessage] = useState("");
+   const [error, setError] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -24,15 +31,45 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setMessage("");
+    setError("");
 
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
+    try{
+      setLoading(true);
 
-    console.log("Registration Data:", formData);
+      const response = await API.post("/auth/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+      });
+
+      setMessage(response.data.message || "Account created successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: "jobseeker",
+      });
+
+    } catch (err){
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again."
+      );
+    }finally {
+      setLoading(false);
+    }
+
+    // console.log("Registration Data:", formData);
   };
 
   return (
@@ -70,6 +107,19 @@ const Register = () => {
           </p>
 
           <form onSubmit={handleSubmit}>
+
+          { message && (
+            <p className="bg-green-100 text-green-700 p-3 rounded-lg mb-4">
+              {message}
+              </p>
+          )
+
+          }
+          {error && (
+  <p className="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
+    {error}
+  </p>
+)}
 
             {/* Full Name */}
             <div className="mb-4">
@@ -196,11 +246,12 @@ const Register = () => {
 
             {/* Register Button */}
             <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
-            >
-              Create Account
-            </button>
+  type="submit"
+  disabled={loading}
+  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg font-semibold transition"
+>
+  {loading ? "Creating Account..." : "Create Account"}
+</button>
 
           </form>
 
