@@ -30,28 +30,39 @@ const Login = () => {
         try {
             setLoading(true);
 
-           const response = await API.post("/auth/login", {
-    email: formData.email,
-    password: formData.password,
-});
+            const response = await API.post("/auth/login", {
+                email: formData.email,
+                password: formData.password,
+            });
 
-console.log("Login Response:", response.data);
+            console.log("Login Response:", response.data);
 
-const { token, user } = response.data;
+            const { token, user } = response.data;
 
-console.log("Token:", token);
-console.log("User:", user);
+            console.log("Token:", token);
+            console.log("User:", user);
 
-localStorage.setItem("token", token);
-localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
 
-// navigate("/");
-setMessage("Login successful!");
+            // navigate("/");
+            setMessage("Login successful!");
 
-setFormData({
-    email: "",
-    password: "",
-});
+            setFormData({
+                email: "",
+                password: "",
+            });
+
+            if (user.role === "jobseeker") {
+                navigate("/jobseeker-dashboard");
+            }
+            else if (user.role === "recruiter") {
+                navigate("/recruiter-dashboard");
+            }
+            else if (user.role === "admin") {
+                navigate("/admin-dashboard");
+            }
+
 
         } catch (err) {
             setError(

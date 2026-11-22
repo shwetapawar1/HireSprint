@@ -241,6 +241,7 @@ const Register = () => {
               >
                 <option value="jobseeker">Jobseeker</option>
                 <option value="recruiter">Recruiter</option>
+                
               </select>
             </div>
 

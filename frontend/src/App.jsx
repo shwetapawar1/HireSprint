@@ -1,8 +1,27 @@
-
-
 import { BrowserRouter,Routes, Navigate, Route } from 'react-router-dom';
+
 import Login from './pages/Login'
 import Register from './pages/Register';
+
+import JobseekerDashboard from './pages/JobseekerDashboard';
+import RecruiterDashboard from './pages/RecruiterDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+
+//Protected route
+const ProtectedRoute = ({allowedRoles, children}) => {
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user") ||  "null");
+
+  if(!token  || !user) {
+    return <Navigate to="/login" replace />;
+  }
+   if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
 
 function App() {
 
@@ -14,6 +33,33 @@ function App() {
     <Route path='/' element={<Navigate to="/login" />} />
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<Register />} />
+
+    <Route 
+       path='/jobseeker-dashboard'
+       element ={ 
+        <ProtectedRoute allowedRoles={["jobseeker"]}>
+          <JobseekerDashboard />
+        </ProtectedRoute>
+       }
+    
+    />
+     <Route
+          path="/recruiter-dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["recruiter"]}>
+              <RecruiterDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
   </Routes>
   
