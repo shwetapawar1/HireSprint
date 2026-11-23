@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import JobseekerDashboard from './pages/JobseekerDashboard';
 import RecruiterDashboard from './pages/RecruiterDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import Jobs from './pages/Jobs';
+import PostJobs from './pages/PostJobs';
 
 //Protected route
 const ProtectedRoute = ({allowedRoles, children}) => {
@@ -60,6 +62,27 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+
+        <Route 
+        path="/jobs"
+        element={
+          <ProtectedRoute allowedRoles={["jobseeker"]}>
+            <Jobs />
+          </ProtectedRoute>
+        }
+
+
+/>
+
+<Route
+  path="/post-job"
+  element={
+    <ProtectedRoute allowedRoles={["recruiter"]}>
+      <PostJobs />
+    </ProtectedRoute>
+  }
+/>
 
   </Routes>
   
