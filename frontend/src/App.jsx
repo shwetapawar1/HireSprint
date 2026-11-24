@@ -9,6 +9,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Jobs from './pages/Jobs';
 import PostJobs from './pages/PostJobs';
 import MyApplications from './pages/MyApplications';
+import RecruiterApplications from './pages/RecruiterApplications';
 
 //Protected route
 const ProtectedRoute = ({allowedRoles, children}) => {
@@ -90,6 +91,16 @@ path='/my-applications'
 element={
   <ProtectedRoute allowedRoles={["jobseeker"]}>
     <MyApplications />
+  </ProtectedRoute>
+}
+
+/>
+
+<Route 
+path="/recruiter-applications"
+element={
+  <ProtectedRoute allowedRoles={["recruiter"]}>
+    <RecruiterApplications />
   </ProtectedRoute>
 }
 

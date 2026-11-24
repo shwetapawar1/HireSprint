@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
   Briefcase,
@@ -117,9 +118,12 @@ const JobseekerDashboard = () => {
         {/* Applications Section */}
         <div className="bg-white p-6 rounded-xl shadow-sm mt-8">
 
-          <h2 className="text-xl font-bold text-gray-800">
-            My Applications
-          </h2>
+         <Link
+  to="/my-applications"
+  className="inline-block mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+>
+  My Applications
+</Link>
 
           <p className="text-gray-500 mt-3">
             Your job application history will appear here.
