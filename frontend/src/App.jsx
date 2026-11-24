@@ -8,6 +8,7 @@ import RecruiterDashboard from './pages/RecruiterDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Jobs from './pages/Jobs';
 import PostJobs from './pages/PostJobs';
+import MyApplications from './pages/MyApplications';
 
 //Protected route
 const ProtectedRoute = ({allowedRoles, children}) => {
@@ -82,6 +83,16 @@ function App() {
       <PostJobs />
     </ProtectedRoute>
   }
+/>
+
+<Route
+path='/my-applications'
+element={
+  <ProtectedRoute allowedRoles={["jobseeker"]}>
+    <MyApplications />
+  </ProtectedRoute>
+}
+
 />
 
   </Routes>
