@@ -92,6 +92,13 @@ const AdminDashboard = () => {
             <p className="text-gray-600 mt-2">
               View and manage registered jobseekers and recruiters.
             </p>
+             <Link
+  to="/manage-users"
+  className="inline-block mt-5 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+>
+  View Users
+</Link>
+
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow-sm">
@@ -102,6 +109,7 @@ const AdminDashboard = () => {
             <p className="text-gray-600 mt-2">
               View and manage all jobs posted on HireSprint.
             </p>
+           
           </div>
 
         </div>

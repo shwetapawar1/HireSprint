@@ -10,6 +10,7 @@ import Jobs from './pages/Jobs';
 import PostJobs from './pages/PostJobs';
 import MyApplications from './pages/MyApplications';
 import RecruiterApplications from './pages/RecruiterApplications';
+import ManageUsers from './pages/ManageUsers';
 
 //Protected route
 const ProtectedRoute = ({allowedRoles, children}) => {
@@ -73,9 +74,8 @@ function App() {
             <Jobs />
           </ProtectedRoute>
         }
-
-
 />
+
 
 <Route
   path="/post-job"
@@ -105,6 +105,17 @@ element={
 }
 
 />
+
+<Route
+ path='/manage-users'
+ element={
+  <ProtectedRoute allowedRoles={["admin"]}>
+    <ManageUsers />
+  </ProtectedRoute>
+ }
+
+  />
+
 
   </Routes>
   
